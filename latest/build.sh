@@ -15,9 +15,9 @@ chmod +x ../entry.sh
 cp ../entry.sh ./build/${version}/
 
 if [ ${GH_CI_LATEST} == "true" ]; then
-    docker build --no-cache --pull -t eisai/cisco-trex -t eisai/cisco-trex:${version} ./build
+    docker build --no-cache --pull -t "eisai/cisco-trex:latest-${GH_CI_PLATFORM}" -t "eisai/cisco-trex:${version}-${GH_CI_PLATFORM}" ./build
 else
-    docker build --no-cache --pull -t eisai/cisco-trex:${version} ./build
+    docker build --no-cache --pull -t "eisai/cisco-trex:${version}-${GH_CI_PLATFORM}" ./build
 fi
 
 if [ ${GH_CI_PUSH} == "true" ]; then

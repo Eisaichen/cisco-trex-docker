@@ -13,12 +13,13 @@ on:
         type: boolean
 
 jobs:
-  build:
+  buildx64:
     name: build and push
     runs-on: ubuntu-latest
     env:
       GH_CI_PUSH: ${{ inputs.push }}
       GH_CI_LATEST: ${{ inputs.latest }}
+      GH_CI_PLATFORM: "x64"
 
     steps:
       - uses: actions/checkout@v4
@@ -31,3 +32,24 @@ jobs:
 
       - name: Run a multi-line script
         run: ./latest/build.sh
+
+  buildarm:
+    name: build and push
+    runs-on: ubuntu-24.04-arm
+    env:
+      GH_CI_PUSH: ${{ inputs.push }}
+      GH_CI_LATEST: ${{ inputs.latest }}
+      GH_CI_PLATFORM: "arm64"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Run a multi-line script
+        run: ./latest/build.sh
+
