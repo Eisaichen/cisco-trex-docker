@@ -12,8 +12,13 @@ sed -i "39s/.*/WORKDIR \/opt\/trex\/${version}/" ./build/Dockerfile
 mv ${version} ./build/
 chmod +x ../entry.sh
 cp ../entry.sh ./build/${version}/
-docker build --no-cache --pull -t eisai/cisco-trex -t eisai/cisco-trex:${version} ./build
-docker push eisai/cisco-trex -a
-docker rmi eisai/cisco-trex eisai/cisco-trex:${version}
-rm -rf ./build/${version}
-rm latest
+
+if [ GH_CI_LATEST == "true"]; then
+    docker build --no-cache --pull -t eisai/cisco-trex -t eisai/cisco-trex:${version} ./build
+else
+    docker build --no-cache --pull -t eisai/cisco-trex:${version} ./build
+fi
+
+if [ GH_CI_PUSH == "true"]; then
+    docker push eisai/cisco-trex -a
+fi
