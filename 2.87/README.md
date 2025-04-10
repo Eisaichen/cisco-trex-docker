@@ -1,0 +1,1 @@
+Last version that stateless GUI `(v4.5.6)` can work.

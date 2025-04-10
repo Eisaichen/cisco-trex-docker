@@ -1,0 +1,17 @@
+services:
+    trex:
+        container_name: trex
+        image: eisai/trex
+        restart: "no"
+        network_mode: "host"
+        cap_add:
+            - ALL
+        privileged: true
+        tty: true
+        stdin_open: true
+        command: ["-f", "/test.yaml", "-d", "10", "-l", "1000", "-m", "100"]
+        volumes:
+            - './test.yaml:/test.yaml'
+            - './trex_cfg.yaml:/etc/trex_cfg.yaml'
+
+# docker attach trex
