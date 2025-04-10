@@ -50,6 +50,7 @@ services:
 docker run --name trex --rm -it --privileged --cap-add=ALL eisai/cisco-trex -i --astf
 ```
 ### TRex Daemon Server (For stateless GUI)
+https://github.com/cisco-system-traffic-generator/trex-stateless-gui
 ``` bash
 docker run --name trex --rm -it --privileged --cap-add=ALL --network host eisai/cisco-trex:v2.87
 ```
