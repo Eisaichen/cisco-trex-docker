@@ -24,7 +24,7 @@
 ls /dev/uio*
 ```
 
-4. Run test
+4. Run test [docker-compose.yaml](https://github.com/Eisaichen/cisco-trex-docker/blob/main/dpdk/docker-compose.yaml)
 ``` bash
 docker compose up
 ```

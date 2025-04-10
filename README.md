@@ -1,5 +1,6 @@
 # cisco-trex-docker
 TRex Traffic Generator, Containerized.
+https://hub.docker.com/r/eisai/cisco-trex
 
 # Usage
 
@@ -24,7 +25,7 @@ docker run --name trex -v ./test.py:/test.py --rm -it --privileged --cap-add=ALL
 ```
 docker run --name trex -v ./trex_cfg.yaml:/etc/trex_cfg.yaml -v ./test.py:/test.py --rm -it --privileged --cap-add=ALL --network host eisai/cisco-trex --astf -f /test.py -m 10 -d 100
 ```
-*Run without any arguments will enter auto-config interface, `dpdk_setup_ports.py -i`*
+*Run without any arguments will enter auto-config interface `dpdk_setup_ports.py -i`*
 ### docker-compose.yaml
 ```
 services:
@@ -53,6 +54,10 @@ docker run --name trex --rm -it --privileged --cap-add=ALL eisai/cisco-trex -i -
 docker run --name trex --rm -it --privileged --cap-add=ALL --network host eisai/cisco-trex:v2.87
 ```
 Default port for daemon server: 8090
+### DPDK mode
+https://github.com/Eisaichen/cisco-trex-docker/tree/main/dpdk
+
 # Documents
+
 ## TRex Documentation
 https://trex-tgn.cisco.com/trex/doc/
