@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ./latest
 wget --no-check-certificate --no-cache https://trex-tgn.cisco.com/trex/release/latest
 tar -xzvf latest
 version=$(find . -maxdepth 1 -type d -name "v*" -printf "%f\n")
@@ -13,12 +14,12 @@ mv ${version} ./build/
 chmod +x ../entry.sh
 cp ../entry.sh ./build/${version}/
 
-if [ GH_CI_LATEST == "true"]; then
+if [ ${GH_CI_LATEST} == "true" ]; then
     docker build --no-cache --pull -t eisai/cisco-trex -t eisai/cisco-trex:${version} ./build
 else
     docker build --no-cache --pull -t eisai/cisco-trex:${version} ./build
 fi
 
-if [ GH_CI_PUSH == "true"]; then
+if [ ${GH_CI_PUSH} == "true" ]; then
     docker push eisai/cisco-trex -a
 fi
