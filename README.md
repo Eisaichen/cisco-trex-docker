@@ -1,5 +1,5 @@
 # cisco-trex-docker
-TRex Traffic Generator, Containerized.
+TRex Traffic Generator, Containerized.\
 https://hub.docker.com/r/eisai/cisco-trex
 
 # Usage
