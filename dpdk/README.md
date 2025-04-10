@@ -2,11 +2,12 @@
 **Danger**\
 **NIC bind to DPDK will be removed from system**
 
-1. Bind NIC to DPDK (Run from the host)
+1. Bind NIC to DPDK (Run from the host)\
+  [bind_dpdk.sh](https://github.com/Eisaichen/cisco-trex-docker/blob/main/dpdk/bind_dpdk.sh)
 ``` bash
 ./bind_dpdk.sh DEV1 [DEV2..]
 ```
-`uio_pci_generic` driver will be used
+  `uio_pci_generic` driver will be used
 
 2. Prepare `trex_cfg.yaml`
 ``` yaml
@@ -29,7 +30,8 @@ ls /dev/uio*
 docker compose up
 ```
 
-5. Un-bind NIC from DPDK (Run from the host)
+5. Un-bind NIC from DPDK (Run from the host)\
+  [unbind_dpdk.sh](https://github.com/Eisaichen/cisco-trex-docker/blob/main/dpdk/unbind_dpdk.sh)
 ``` bash
 ./unbind_dpdk.sh
 ```
