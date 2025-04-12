@@ -1,4 +1,4 @@
-# Enable DPDK
+# DPDK Mode
 
 **Danger**\
 **NIC bind to DPDK will be removed from system**\
