@@ -11,6 +11,8 @@ fi
 sudo sysctl -w vm.nr_hugepages=1024 > /dev/null
 modprobe vfio-pci
 
+echo "Device bind to DPDK will be REMOVED from the system!"
+echo ""
 > ./devices.txt
 for arg in "$@"; do
     if [ ! -d "/sys/class/net/$arg" ]; then
@@ -26,8 +28,6 @@ for arg in "$@"; do
     fi
     IOMMU_DEVS=$(ls /sys/bus/pci/devices/${DEV_LOCATION}/iommu_group/devices)
 
-    echo "Device bind to DPDK will be REMOVED from the system!"
-    echo ""
     echo "IOMMU group number: $IOMMU_GROUP"
     echo "Following devices in the same IOMMU group will be bound to DPDK:"
     echo ""
