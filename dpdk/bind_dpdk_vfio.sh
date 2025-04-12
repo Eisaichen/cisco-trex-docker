@@ -43,10 +43,10 @@ for arg in "$@"; do
     for DEV in $DEVS; do
         DEV_NAME="$(lspci -s $DEV)"
         DEV_DRIVER="$(basename $(readlink /sys/bus/pci/devices/${DEV}/driver))"
+        DEV_ID="$(lspci -n -s "$DEV" | awk '{print $3}' | sed 's/:/ /')"
         echo "Binding: $DEV_NAME"
         echo "$DEV $DEV_DRIVER" >> ./devices.txt
         echo "$DEV" > /sys/bus/pci/devices/${DEV}/driver/unbind
-        DEV_ID="$(lspci -n -s "$DEV" | awk '{print $3}' | sed 's/:/ /')"
         sleep 2
         echo "$DEV_ID" > /sys/bus/pci/drivers/vfio-pci/new_id
     done

@@ -14,9 +14,9 @@ Overall, I suggest not using DPDK since it is too problematic on consumer hardwa
      Require IOMMU to be enabled
 
 ```bash
-./bind_dpdk_uio.sh DEV1 [DEV2..]
+sudo ./bind_dpdk_uio.sh DEV1 [DEV2..]
 or
-./bind_dpdk_vfio.sh DEV1 [DEV2..]
+sudo ./bind_dpdk_vfio.sh DEV1 [DEV2..]
 ```
 
 2. Prepare `trex_cfg.yaml`
@@ -54,6 +54,6 @@ docker compose up
    [unbind_dpdk.sh](https://github.com/Eisaichen/cisco-trex-docker/blob/main/dpdk/unbind_dpdk.sh)
 
 ```bash
-./unbind_dpdk.sh
+sudo ./unbind_dpdk.sh
 ```
 
