@@ -3,22 +3,27 @@
 
 if [ $# -eq 0 ]; then
     echo "Usage:"
-    echo "./bind_dpdk.sh DEV1 [DEV2..]"
+    echo "$0 DEV1 [DEV2..]"
     exit 1
 fi
 
 # enable hugepage is required by DPDK
 sudo sysctl -w vm.nr_hugepages=1024 > /dev/null
 modprobe vfio-pci
-> ./devices.txt
 
+> ./devices.txt
 for arg in "$@"; do
     if [ ! -d "/sys/class/net/$arg" ]; then
         echo "$arg is not a valid device"
         exit 1
     fi
-    DEV_LOCATION="$(ethtool -i $arg | grep bus-info | awk '{ print $2 }')"
+    DEV_LOCATION="$(ethtool -i $arg | grep bus-info | awk '{ print $2 }')"    
     IOMMU_GROUP="$(basename $(readlink /sys/bus/pci/devices/${DEV_LOCATION}/iommu_group))"
+    if [[ " ${IOMMU_GROUPS[@]} " =~ " $IOMMU_GROUP " ]]; then
+        continue
+    else
+        IOMMU_GROUPS+=("$IOMMU_GROUP")
+    fi
     IOMMU_DEVS=$(ls /sys/bus/pci/devices/${DEV_LOCATION}/iommu_group/devices)
 
     echo "Device bind to DPDK will be REMOVED from the system!"
