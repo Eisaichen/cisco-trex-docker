@@ -40,21 +40,21 @@ for arg in "$@"; do
         echo "$DEV_NAME"
         DEVS="$DEVS $DEV"
     done
-
     echo ""
-    echo "press any key to continue or Ctrl+C to cancel"
-    read -n1 -s
+done
 
-    for DEV in $DEVS; do
-        DEV_NAME="$(lspci -s $DEV)"
-        DEV_DRIVER="$(basename $(readlink /sys/bus/pci/devices/${DEV}/driver))"
-        DEV_ID="$(lspci -n -s "$DEV" | awk '{print $3}' | sed 's/:/ /')"
-        echo "Binding: $DEV_NAME"
-        echo "$DEV $DEV_DRIVER" >> ./devices.txt
-        echo "$DEV" > /sys/bus/pci/devices/${DEV}/driver/unbind
-        sleep 2
-        echo "$DEV_ID" > /sys/bus/pci/drivers/vfio-pci/new_id
-    done
+echo "press any key to continue or Ctrl+C to cancel"
+read -n1 -s
+
+for DEV in $DEVS; do
+    DEV_NAME="$(lspci -s $DEV)"
+    DEV_DRIVER="$(basename $(readlink /sys/bus/pci/devices/${DEV}/driver))"
+    DEV_ID="$(lspci -n -s "$DEV" | awk '{print $3}' | sed 's/:/ /')"
+    echo "Binding: $DEV_NAME"
+    echo "$DEV $DEV_DRIVER" >> ./devices.txt
+    echo "$DEV" > /sys/bus/pci/devices/${DEV}/driver/unbind
+    sleep 2
+    echo "$DEV_ID" > /sys/bus/pci/drivers/vfio-pci/new_id
 done
 
 echo ""
