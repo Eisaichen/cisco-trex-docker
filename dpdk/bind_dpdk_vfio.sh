@@ -19,7 +19,8 @@ for arg in "$@"; do
         echo "$arg is not a valid device"
         exit 1
     fi
-    DEV_LOCATION="$(ethtool -i $arg | grep bus-info | awk '{ print $2 }')"    
+    DEV_LOCATION="$(ethtool -i $arg | grep bus-info | awk '{ print $2 }')"
+    DEV_LOCATIONS="$DEV_LOCATIONS $DEV_LOCATION"
     IOMMU_GROUP="$(basename $(readlink /sys/bus/pci/devices/${DEV_LOCATION}/iommu_group))"
     if [[ " ${IOMMU_GROUPS[@]} " =~ " $IOMMU_GROUP " ]]; then
         continue
@@ -68,6 +69,6 @@ if [[ "${input,,}" != "y" ]]; then
     exit 0
 fi
 
-echo -e "\nInterface, put in trex_cfg.yaml: $DEV_LOCATION"
+echo -e "\nInterface, put in trex_cfg.yaml: $DEV_LOCATIONS"
 exit 0
 
