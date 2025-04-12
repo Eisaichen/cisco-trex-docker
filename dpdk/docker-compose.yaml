@@ -1,7 +1,7 @@
 services:
     trex:
         container_name: trex
-        image: eisai/trex
+        image: eisai/cisco-trex
         restart: "no"
         cap_add:
             - ALL
@@ -14,7 +14,7 @@ services:
             - './trex_cfg.yaml:/etc/trex_cfg.yaml'
             - '/lib/modules:/lib/modules:ro'
         devices:
-            - /dev/uio0
-            - /dev/uio1
+            - /dev/uio0           # if uio driver
+            - /dev/vfio/19        # if vfio driver
+            # - /dev/uio1
             # - /dev/uio2
-            # - /dev/uio3
